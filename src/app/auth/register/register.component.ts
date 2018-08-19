@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Form} from '@angular/forms';
+import {NgForm} from '@angular/forms';
+import {AuthService} from '../auth.service';
 
 @Component({
   selector: 'app-register',
@@ -8,13 +9,15 @@ import {Form} from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  onSubmit(form: Form) {
-
+  onSubmit(form: NgForm) {
+    // const fullname = form.value.fullname;
+    this.authService.createUserInFirebaseAuthList(form.value.email, form.value.password);
+    // this.authService.createUserInFirebaseAuthListEmailVerified(form.value.email, form.value.password);
   }
 
 }

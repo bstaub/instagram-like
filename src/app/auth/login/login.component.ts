@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Form} from '@angular/forms';
+import {NgForm} from '@angular/forms';
+import {AuthService} from '../auth.service';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -8,13 +11,18 @@ import {Form} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
   }
 
-  onSubmit(form: Form) {
-
+  onSubmit(form: NgForm) {
+    this.authService.loginWithUserPassword(form.value.email, form.value.password)
+      .then( (res) => {
+         console.log('Login Email/Password Erfrolgreich');
+         console.log(res);
+      })
+      .catch( (err) => console.log('error bs: ' + err));
   }
 
 }

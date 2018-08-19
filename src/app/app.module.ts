@@ -15,7 +15,15 @@ import { LoginComponent } from './auth/login/login.component';
 import { HomeComponent } from './home/home.component';
 import {AppRoutingModule} from './app-routing.module';
 import {FormsModule} from '@angular/forms';
-import {RouteGuard} from './auth/route-guard';
+
+import { environment } from '../environments/environment';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import {AuthService} from './auth/auth.service';
+import {AuthGuard} from './auth/auth-guard.service';
+import { ProfileComponent } from './auth/profile/profile.component';
+
 
 @NgModule({
   declarations: [
@@ -27,15 +35,19 @@ import {RouteGuard} from './auth/route-guard';
     MyPostsComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase, 'instaclone'),
+    AngularFireDatabaseModule, // for database
+    AngularFireAuthModule,
   ],
-  providers: [RouteGuard],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

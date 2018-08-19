@@ -9,16 +9,16 @@
       <li class="nav-item">
         <a class="nav-link"  routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="authGuard.canActivate()">
         <a class="nav-link"  routerLink="/allposts" routerLinkActive="active">All Posts <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="authGuard.canActivate()">
         <a class="nav-link"  routerLink="/following" routerLinkActive="active">Following <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="authGuard.canActivate()">
         <a class="nav-link"  routerLink="/favorites" routerLinkActive="active">Favorites <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="authGuard.canActivate()">
         <a class="nav-link"  routerLink="/myposts" routerLinkActive="active">My Posts <span class="sr-only">(current)</span></a>
       </li>
     </ul>
@@ -29,7 +29,8 @@
         <div class="dropdown-menu" aria-labelledby="dropdown01" ngbDropdownMenu>
           <a routerLinkActive="active" class="dropdown-item" routerLink="/register">Register</a>
           <a routerLinkActive="active" class="dropdown-item" routerLink="/login">Login</a>
-          <a routerLinkActive="active" class="dropdown-item" href="#">Logout</a>
+          <a routerLinkActive="active" class="dropdown-item" routerLink="/profile" *ngIf="authGuard.canActivate()">Profil</a>
+          <a routerLinkActive="active" class="dropdown-item" href="#" (click)="logout()" *ngIf="authGuard.canActivate()">Logout</a>
         </div>
       </li>
     </ul>

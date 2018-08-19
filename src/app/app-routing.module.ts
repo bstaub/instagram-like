@@ -6,16 +6,19 @@ import {FavoritesComponent} from './favorites/favorites.component';
 import {MyPostsComponent} from './my-posts/my-posts.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
-import {RouteGuard} from './auth/route-guard';
+import {AuthGuard} from './auth/auth-guard.service';
+import {ProfileComponent} from './auth/profile/profile.component';
+
 
 const APP_ROUTES: Routes = [
-  {path: '', component: HomeComponent, canActivate: [RouteGuard]},
-  {path: 'allposts', component: AllPostComponent, canActivate: [RouteGuard]},
-  {path: 'following', component: FollowingComponent, canActivate: [RouteGuard]},
-  {path: 'favorites', component: FavoritesComponent, canActivate: [RouteGuard]},
-  {path: 'myposts', component: MyPostsComponent, canActivate: [RouteGuard]},
+  {path: '', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'allposts', component: AllPostComponent, canActivate: [AuthGuard]},
+  {path: 'following', component: FollowingComponent, canActivate: [AuthGuard]},
+  {path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard]},
+  {path: 'myposts', component: MyPostsComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
 ];
 
 export const AppRoutingModule = RouterModule.forRoot(APP_ROUTES);
