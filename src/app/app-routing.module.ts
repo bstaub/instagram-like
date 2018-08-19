@@ -6,13 +6,14 @@ import {FavoritesComponent} from './favorites/favorites.component';
 import {MyPostsComponent} from './my-posts/my-posts.component';
 import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
+import {RouteGuard} from './auth/route-guard';
 
 const APP_ROUTES: Routes = [
-  {path: '', component: HomeComponent},
-  {path: 'allposts', component: AllPostComponent},
-  {path: 'following', component: FollowingComponent},
-  {path: 'favorites', component: FavoritesComponent},
-  {path: 'myposts', component: MyPostsComponent},
+  {path: '', component: HomeComponent, canActivate: [RouteGuard]},
+  {path: 'allposts', component: AllPostComponent, canActivate: [RouteGuard]},
+  {path: 'following', component: FollowingComponent, canActivate: [RouteGuard]},
+  {path: 'favorites', component: FavoritesComponent, canActivate: [RouteGuard]},
+  {path: 'myposts', component: MyPostsComponent, canActivate: [RouteGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
 ];
