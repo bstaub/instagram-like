@@ -63,11 +63,12 @@ export class AuthService {
         handleCodeInApp: true
     };
 
-    this._firebaseAuth.auth.sendSignInLinkToEmail(email, actionCodeSettings);
+    // this._firebaseAuth.auth.sendSignInLinkToEmail(email, actionCodeSettings);
 
     this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then( userData => {
         console.log(userData);
+        userData.user.sendEmailVerification(actionCodeSettings);
       })
       .catch(function(error) {
         console.log(error);

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase/app';
 import {AuthService} from '../auth/auth.service';
 import {AuthGuard} from '../auth/auth-guard.service';
+import {AngularFireAuth} from 'angularfire2/auth';
 
 @Component({
   selector: 'app-header',
@@ -12,22 +13,20 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn: boolean = false;
 
-  constructor(private authService: AuthService, public authGuard: AuthGuard) { }
+  constructor(private _firebaseAuth: AngularFireAuth, private authService: AuthService, public authGuard: AuthGuard) { }
 
   ngOnInit() {
 
-    // firebase.auth().onAuthStateChanged( userData => {
-    //   // we are logged in
-    //   if (userData && userData.emailVerified ) {
-    //     this.isLoggedIn = true;
-    //   } else {
-    //     this.isLoggedIn = false;
-    //   }
-    // });
+    this._firebaseAuth.auth.onAuthStateChanged( userData => {
+      // we are logged in
+      console.log('ngOnInit0', userData);
 
-    // console.log('authChange!!!', this.authService.authChangeCheckFirebase());
-
-
+      if (userData && userData.emailVerified ) {
+        this.isLoggedIn = true;
+      } else {
+        this.isLoggedIn = false;
+      }
+    });
 
     // if(this.authService.authChangeCheckFirebase() === null) {
     //   this.isLoggedIn = false;
