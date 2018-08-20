@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable} from 'rxjs';
 
+
 @Injectable()
 export class AuthService {
   private user: Observable<firebase.User>;
@@ -53,7 +54,22 @@ export class AuthService {
   createUserInFirebaseAuthListEmailVerified(email, password) {
     console.log('vor createUserInFirebaseAuthList->' + email + ' / ' + password );
 
-    //firebase.auth().sendSignInLinkToEmail(email,password)
+    // https://stackoverflow.com/questions/44940897/property-auth-does-not-exist-on-type-angularfiremodule
+    // https://stackoverflow.com/questions/39691889/error-cannot-invoke-an-expression-whose-type-lacks-a-call-signature
+    // firebase.auth().sendSignInLinkToEmail(email,password)
+    // this.fa.auth().sendEmailVerification();
+    // this._firebaseAuth.auth().sendEmailVerification(): any {};
+    // this._firebaseAuth.auth().sendEmailVerification();
+    // https://stackoverflow.com/questions/49847189/sendsigninlinktoemail-sending-invalid-url
+    // https://firebase.google.com/docs/auth/web/email-link-auth
+    const actionCodeSettings = {
+        url: 'http://localhost:4200/login',
+        // This must be true.
+        handleCodeInApp: true
+    };
+
+    this._firebaseAuth.auth.sendSignInLinkToEmail(email, actionCodeSettings);
+
 
     this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then( userData => {
