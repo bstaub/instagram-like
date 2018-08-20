@@ -55,11 +55,6 @@ export class AuthService {
     console.log('vor createUserInFirebaseAuthList->' + email + ' / ' + password );
 
     // https://stackoverflow.com/questions/44940897/property-auth-does-not-exist-on-type-angularfiremodule
-    // https://stackoverflow.com/questions/39691889/error-cannot-invoke-an-expression-whose-type-lacks-a-call-signature
-    // firebase.auth().sendSignInLinkToEmail(email,password)
-    // this.fa.auth().sendEmailVerification();
-    // this._firebaseAuth.auth().sendEmailVerification(): any {};
-    // this._firebaseAuth.auth().sendEmailVerification();
     // https://stackoverflow.com/questions/49847189/sendsigninlinktoemail-sending-invalid-url
     // https://firebase.google.com/docs/auth/web/email-link-auth
     const actionCodeSettings = {
@@ -69,7 +64,6 @@ export class AuthService {
     };
 
     this._firebaseAuth.auth.sendSignInLinkToEmail(email, actionCodeSettings);
-
 
     this._firebaseAuth.auth.createUserWithEmailAndPassword(email, password)
       .then( userData => {
