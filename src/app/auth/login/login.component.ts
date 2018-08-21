@@ -21,6 +21,8 @@ export class LoginComponent implements OnInit {
       .then( (res) => {
          console.log('Login Email/Password Erfrolgreich');
          console.log(res);
+         // https://stackoverflow.com/questions/45025334/how-to-use-router-navigatebyurl-and-router-navigate-in-angular
+         this.router.navigateByUrl('');  // geht zur Homepage!
       })
       .catch( (err) => console.log('error bs: ' + err));
   }
