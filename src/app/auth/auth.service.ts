@@ -109,6 +109,24 @@ export class AuthService {
 
   }
 
+
+  resetPassword(email) {
+
+    const actionCodeSettings = {
+      url: 'http://localhost:4200/login',
+      // This must be true.
+      handleCodeInApp: true
+    };
+
+    this._firebaseAuth.auth.sendPasswordResetEmail(email, actionCodeSettings)
+      .then( data => {
+        console.log('Passwort Reset Mail send Successful');
+        console.log( data );
+        this.router.navigate(['/login']);
+
+      }).catch( error => console.log(error));
+  }
+
   getUserProfile() {
     return this.userDetails;
   }

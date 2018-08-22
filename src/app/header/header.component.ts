@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn: boolean = false;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private authService: AuthService, public authGuard: AuthGuard) { }
+  constructor(private _firebaseAuth: AngularFireAuth, private authService: AuthService) { }
 
   ngOnInit() {
 

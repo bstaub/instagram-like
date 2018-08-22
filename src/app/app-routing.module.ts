@@ -8,6 +8,7 @@ import {RegisterComponent} from './auth/register/register.component';
 import {LoginComponent} from './auth/login/login.component';
 import {AuthGuard} from './auth/auth-guard.service';
 import {ProfileComponent} from './auth/profile/profile.component';
+import {ResetPasswordComponent} from './auth/reset-password/reset-password.component';
 
 
 const APP_ROUTES: Routes = [
@@ -18,6 +19,7 @@ const APP_ROUTES: Routes = [
   {path: 'myposts', component: MyPostsComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'resetpw', component: ResetPasswordComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
 ];
 

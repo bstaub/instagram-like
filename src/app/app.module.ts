@@ -23,6 +23,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
 import { ProfileComponent } from './auth/profile/profile.component';
+import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { ProfileComponent } from './auth/profile/profile.component';
     RegisterComponent,
     LoginComponent,
     HomeComponent,
-    ProfileComponent
+    ProfileComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,
