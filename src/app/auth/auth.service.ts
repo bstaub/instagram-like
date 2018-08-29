@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { Observable} from 'rxjs';
+import {UserService} from './user.service';
+import {User} from '../models/user';
 
 
 @Injectable()
@@ -11,7 +13,7 @@ export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router) {
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private cruduser: UserService) {
 
     this.user = _firebaseAuth.authState;
 
@@ -51,7 +53,7 @@ export class AuthService {
     });
   }
 
-  createUserInFirebaseAuthListEmailVerified(email, password) {
+  createUserInFirebaseAuthListEmailVerified(email, password, username) {
     console.log('vor createUserInFirebaseAuthList->' + email + ' / ' + password );
 
     // https://stackoverflow.com/questions/44940897/property-auth-does-not-exist-on-type-angularfiremodule
@@ -69,6 +71,18 @@ export class AuthService {
       .then( userData => {
         console.log(userData);
         userData.user.sendEmailVerification(actionCodeSettings);
+
+        const user: User = {
+          id: userData.user.uid,
+          username: username,
+          email: email,
+          anonymous: userData.user.isAnonymous,
+          roles: {
+            authuser: true,
+            admin: false
+          }
+        };
+        this.cruduser.addUser(user);
       })
       .catch(function(error) {
         console.log(error);

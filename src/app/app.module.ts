@@ -24,6 +24,8 @@ import {AuthService} from './auth/auth.service';
 import {AuthGuard} from './auth/auth-guard.service';
 import { ProfileComponent } from './auth/profile/profile.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
+import {UserService} from './auth/user.service';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
 
 
 @NgModule({
@@ -47,9 +49,10 @@ import { ResetPasswordComponent } from './auth/reset-password/reset-password.com
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase, 'instaclone'),
     AngularFireDatabaseModule, // for database
+    AngularFirestoreModule, // cloud firestore
     AngularFireAuthModule,
   ],
-  providers: [AuthService, AuthGuard],
+  providers: [AuthService, AuthGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
