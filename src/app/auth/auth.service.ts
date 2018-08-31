@@ -78,6 +78,7 @@ export class AuthService {
 
         const user: User = {
           id: userData.user.uid,
+          // uid: userData.user.uid,
           username: username,
           email: email,
           anonymous: userData.user.isAnonymous,
@@ -89,12 +90,17 @@ export class AuthService {
         };
         // this.userService.addUser(user);
         this.userService.setUserToLocalStorage(user);
-        this.userService.addUser(user)
-          .then( data => {
-            console.log(data);
+        // this.userService.addUser(user)
+        //   .then( data => {
+        //     console.log(data);
+        //     this._firebaseAuth.auth.signOut();  // erst wenn der Benutzer erfasst wird aus Firebase ausloggen!
+        //   });
+        this.userService.setUser4(user)
+          .then( () => {
             this._firebaseAuth.auth.signOut();  // erst wenn der Benutzer erfasst wird aus Firebase ausloggen!
-          });
-        this.userService.setUserMerge(user);
+          })
+          .catch(err => console.log(err));
+        // this.userService.setUserMerge(user);
       })
       // .then(() => {
       //   setTimeout(() => {

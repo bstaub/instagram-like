@@ -44,9 +44,13 @@ export class UserService {
     this.userDoc.set(user);
   }
   setUser3(user: User) {
-    // return this.usersCollection.set({user});
-    this.afs.doc(`users/${user.id}`);
-    this.userDoc.set(user);
+    this.userDoc = this.afs.doc(`users/${user.id}`);
+    this.userDoc.set(user, {merge: true});
+  }
+
+  setUser4(user: User) {
+    this.userDoc = this.afs.doc(`users/${user.id}`);
+    return this.userDoc.set(user, {merge: true});
   }
 
   setUserMerge(user: User) {

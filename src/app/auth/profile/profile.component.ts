@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from '../auth.service';
 import UserCredential = firebase.auth.UserCredential;
 import {UserService} from '../user.service';
 import {StorageService} from '../../shared/storage.service';
+import {User} from '../../models/user';
 
 @Component({
   selector: 'app-profile',
@@ -17,9 +18,11 @@ export class ProfileComponent implements OnInit {
   singleUserInFirestore;
   localStorageUser;
   imageUrl;
+  user2;
 
   ngOnInit() {
     this.user = this.authService.getUserProfile();
+
     this.getUser();
   }
 
@@ -43,10 +46,29 @@ export class ProfileComponent implements OnInit {
         uploadSnapshot.ref.getDownloadURL().then((downloadURL) => {
           console.log(downloadURL);
           this.imageUrl = downloadURL;
+          const data: User = {
+            id: this.user.uid,
+            // uid: this.user.uid,
+            downloadUrl: downloadURL,
+          };
+          // this.userService.setUser3(this.localStorageUser);
+          this.userService.setUser4(data);
+          this.getNewProfile();
+
         });
 
     });
 
+  }
+
+
+
+  getNewProfile() {
+    console.log('test2');
+    console.log(this.user.uid);
+    // this.user2 = this.userService.getSingleUserinFireStore(this.user.uid);
+    // console.log(this.user2);
+    // debugger;
   }
 
 
