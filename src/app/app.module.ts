@@ -28,6 +28,8 @@ import {UserService} from './auth/user.service';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
 import { NotificationComponent } from './notification/notification.component';
 import {NotificationService} from './shared/notification.service';
+import {StorageService} from './shared/storage.service';
+import {AngularFireStorageModule} from 'angularfire2/storage';
 
 
 @NgModule({
@@ -53,9 +55,10 @@ import {NotificationService} from './shared/notification.service';
     AngularFireModule.initializeApp(environment.firebase, 'instaclone'),
     AngularFireDatabaseModule, // for database
     AngularFirestoreModule, // cloud firestore
-    AngularFireAuthModule,
+    AngularFireAuthModule,  // do auth login register stuff
+    AngularFireStorageModule  // do file store stuff
   ],
-  providers: [AuthService, AuthGuard, UserService, NotificationService],
+  providers: [AuthService, AuthGuard, UserService, NotificationService, StorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

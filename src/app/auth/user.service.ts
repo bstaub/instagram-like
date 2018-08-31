@@ -53,6 +53,7 @@ export class UserService {
 
   }
 
+  // LocalStorage Functions start
   setUserToLocalStorage(userFromDatabase) {
     localStorage.setItem('user', JSON.stringify(userFromDatabase));
   }
@@ -63,6 +64,13 @@ export class UserService {
 
   getProfileFromLocalStorage() {
     return JSON.parse(localStorage.getItem('user')) || [];
+  }
+
+  // FileUpload Function start
+  uploadFile(file) {
+    // const filename = 'abc.png';
+    // const fileRef = this.afs.
+
   }
 
 }
