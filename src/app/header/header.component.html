@@ -25,7 +25,7 @@
 
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown" ngbDropdown>
-        <a class="nav-link dropdown-toggle" id="dropdown01" ngbDropdownToggle>Benutzer Login Komponenten</a>
+        <a class="nav-link dropdown-toggle" id="dropdown01" ngbDropdownToggle><span *ngIf="isLoggedIn">Hallo {{name}}</span><span *ngIf="!isLoggedIn">Shop Anmeldung</span></a>
         <div class="dropdown-menu" aria-labelledby="dropdown01" ngbDropdownMenu>
           <a routerLinkActive="active" class="dropdown-item" routerLink="/register">Register</a>
           <a routerLinkActive="active" class="dropdown-item" routerLink="/login">Login</a>

@@ -4,6 +4,7 @@ import {User} from '../models/user';
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import AuthCredential = firebase.auth.AuthCredential;
+import {loadQueryList} from '@angular/core/src/render3/instructions';
 
 
 @Injectable({
@@ -51,4 +52,17 @@ export class UserService {
     this.userDoc.update(user);
 
   }
+
+  setUserToLocalStorage(userFromDatabase) {
+    localStorage.setItem('user', JSON.stringify(userFromDatabase));
+  }
+
+  destroyUserLocalStorage() {
+    localStorage.removeItem('user');
+  }
+
+  getProfileFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('user')) || [];
+  }
+
 }

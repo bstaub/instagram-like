@@ -14,7 +14,7 @@ export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private cruduser: UserService, private notifier: NotificationService) {
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private userService: UserService, private notifier: NotificationService) {
 
     this.user = _firebaseAuth.authState;
 
@@ -87,8 +87,9 @@ export class AuthService {
           },
           registrationDate: new Date(),
         };
-        // this.cruduser.addUser(user);
-        this.cruduser.addUser(user)
+        // this.userService.addUser(user);
+        this.userService.setUserToLocalStorage(user);
+        this.userService.addUser(user)
           .then( data => {
             console.log(data);
             this._firebaseAuth.auth.signOut();  // erst wenn der Benutzer erfasst wird aus Firebase ausloggen!

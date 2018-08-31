@@ -19,17 +19,19 @@ export class LoginComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.authService.loginWithUserPassword(form.value.email, form.value.password)
-      .then( (res) => {
-        console.log('Login Email/Password Erfrolgreich');
-        console.log(res);
+      .then( userData => {
 
-        this.notifier.display('success', 'Login erfolgreich');
+        if (userData && userData.user.emailVerified) {
+          this.notifier.display('success', 'Login erfolgreich');
 
-        setTimeout(() => {
-          // https://stackoverflow.com/questions/45025334/how-to-use-router-navigatebyurl-and-router-navigate-in-angular
-          this.router.navigateByUrl('');  // geht zur Homepage!
-          // this.router.navigate(['/login']);
-        }, 2000);
+          setTimeout(() => {
+            // https://stackoverflow.com/questions/45025334/how-to-use-router-navigatebyurl-and-router-navigate-in-angular
+            this.router.navigateByUrl('');  // geht zur Homepage!
+            // this.router.navigate(['/login']);
+          }, 2000);
+        } else {
+          this.notifier.display('error', 'Loginfehler: Sie müssen zuerst die Email Adresse verifizieren');
+        }
 
       })
       .catch( err => {

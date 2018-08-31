@@ -10,10 +10,11 @@ import {UserService} from '../user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor(private authService: AuthService, private FireStoreuser: UserService) { }
+  constructor(private authService: AuthService, private userService: UserService) { }
 
   user;
   singleUserInFirestore;
+  localStorageUser;
 
   ngOnInit() {
     this.user = this.authService.getUserProfile();
@@ -26,8 +27,10 @@ export class ProfileComponent implements OnInit {
     console.log(this.user.uid);
     // debugger;
 
-    this.singleUserInFirestore = this.FireStoreuser.getSingleUserinFireStore(this.user.uid);
-    console.log(this.singleUserInFirestore);
+    this.localStorageUser = this.userService.getProfileFromLocalStorage();
+
+    this.singleUserInFirestore = this.userService.getSingleUserinFireStore(this.user.uid);
+    console.log('testing singleUserInFirestore: ', this.singleUserInFirestore);
 
 
   }

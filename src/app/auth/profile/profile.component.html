@@ -1,14 +1,23 @@
-<p>
-  profile works!
-</p>
-
-<p>{{ user | json }}}</p>
 
 
-<p>DisplayName {{ user.displayName }}</p>
-<p>Email: {{ user.email }}</p>
-<p>Verified: {{ user.emailVerified }}</p>
-<p>uid: {{ user.uid }}</p>
+<!--<p><strong>AuthUser: </strong>{{ user | json }}}</p>-->
+<!--<p><strong>LocalStorage: </strong> {{ localStorageUser | json }}}</p>-->
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1>User Profil</h1>
+
+      <p>Benutzername: {{ localStorageUser.username }}</p>
+      <p>Email: {{ user.email }}</p>
+      <p>Verified: {{ user.emailVerified }}</p>
+      <p>uid: {{ user.uid }}</p>
+      <p>AuthUser: {{ localStorageUser.roles.authuser }}</p>
+      <p>Admin: {{ localStorageUser.roles.admin }}</p>
+    </div>
+  </div>
+</div>
+
 
 
 
