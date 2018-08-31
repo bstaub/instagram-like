@@ -66,11 +66,4 @@ export class UserService {
     return JSON.parse(localStorage.getItem('user')) || [];
   }
 
-  // FileUpload Function start
-  uploadFile(file) {
-    // const filename = 'abc.png';
-    // const fileRef = this.afs.
-
-  }
-
 }
