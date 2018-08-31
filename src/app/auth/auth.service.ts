@@ -94,6 +94,7 @@ export class AuthService {
             console.log(data);
             this._firebaseAuth.auth.signOut();  // erst wenn der Benutzer erfasst wird aus Firebase ausloggen!
           });
+        this.userService.setUserMerge(user);
       })
       // .then(() => {
       //   setTimeout(() => {

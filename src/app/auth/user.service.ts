@@ -38,6 +38,26 @@ export class UserService {
     return this.usersCollection.add(user);  // need return for async logout call in register process!
   }
 
+  setUser2(user: User) {
+    // return this.usersCollection.set({user});
+    this.afs.doc(`users/${user.id}`);
+    this.userDoc.set(user);
+  }
+  setUser3(user: User) {
+    // return this.usersCollection.set({user});
+    this.afs.doc(`users/${user.id}`);
+    this.userDoc.set(user);
+  }
+
+  setUserMerge(user: User) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.id}`);
+    const data: User = {
+      downloadUrl: 'xxx',
+      area: 'luzernXXX'
+    };
+    return userRef.set(data, {merge: true});
+  }
+
   getSingleUserinFireStore(uid: AuthCredential) {
     return this.afs.collection('users', ref => ref.where('id', '==', uid));
   }

@@ -8,6 +8,7 @@ export interface User {
   roles?: Roles;
   registrationDate?: Date;
   downloadUrl?: string;
+  area?: string;
 }
 
 export interface Roles {
