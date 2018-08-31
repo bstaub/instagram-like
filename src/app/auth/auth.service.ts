@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import { Observable} from 'rxjs';
 import {UserService} from './user.service';
 import {User} from '../models/user';
+import {NotificationService} from '../shared/notification.service';
 
 
 @Injectable()
@@ -13,7 +14,7 @@ export class AuthService {
   private user: Observable<firebase.User>;
   private userDetails: firebase.User = null;
 
-  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private cruduser: UserService) {
+  constructor(private _firebaseAuth: AngularFireAuth, private router: Router, private cruduser: UserService, private notifier: NotificationService) {
 
     this.user = _firebaseAuth.authState;
 
@@ -72,6 +73,9 @@ export class AuthService {
         console.log(userData);
         userData.user.sendEmailVerification(actionCodeSettings);
 
+        const message = `Eine Verification EMail wurde an ${email} geschickt. Bitte prüfen Sie Ihr Posteingang und bestätigen Sie die Registrationsprüfung.`;
+        this.notifier.display('success', message);
+
         const user: User = {
           id: userData.user.uid,
           username: username,
@@ -80,12 +84,24 @@ export class AuthService {
           roles: {
             authuser: true,
             admin: false
-          }
+          },
+          registrationDate: new Date(),
         };
-        this.cruduser.addUser(user);
+        // this.cruduser.addUser(user);
+        this.cruduser.addUser(user)
+          .then( data => {
+            console.log(data);
+            this._firebaseAuth.auth.signOut();  // erst wenn der Benutzer erfasst wird aus Firebase ausloggen!
+          });
       })
-      .catch(function(error) {
+      // .then(() => {
+      //   setTimeout(() => {
+      //     this._firebaseAuth.auth.signOut();
+      //   }, 2000);
+      // })
+      .catch(error => {
         console.log(error);
+        this.notifier.display('error', error.message);
       });
   }
 
@@ -136,9 +152,18 @@ export class AuthService {
       .then( data => {
         console.log('Passwort Reset Mail send Successful');
         console.log( data );
-        this.router.navigate(['/login']);
+        this.notifier.display('success', 'Das Passwort Reset Mail wurde erfolgreich verschickt');
 
-      }).catch( error => console.log(error));
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 2000);
+
+
+      }).catch(
+        error => {
+          console.log(error);
+          this.notifier.display('error', error.message);
+        });
   }
 
   getUserProfile() {

@@ -6,6 +6,7 @@ export interface User {
   anonymous?: boolean;
   photoURL?: string;  // user.photoURL,
   roles?: Roles;
+  registrationDate: Date;
 }
 
 export interface Roles {

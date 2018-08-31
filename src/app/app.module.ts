@@ -26,6 +26,8 @@ import { ProfileComponent } from './auth/profile/profile.component';
 import { ResetPasswordComponent } from './auth/reset-password/reset-password.component';
 import {UserService} from './auth/user.service';
 import {AngularFirestoreModule} from 'angularfire2/firestore';
+import { NotificationComponent } from './notification/notification.component';
+import {NotificationService} from './shared/notification.service';
 
 
 @NgModule({
@@ -40,7 +42,8 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
     LoginComponent,
     HomeComponent,
     ProfileComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    NotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,7 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
     AngularFirestoreModule, // cloud firestore
     AngularFireAuthModule,
   ],
-  providers: [AuthService, AuthGuard, UserService],
+  providers: [AuthService, AuthGuard, UserService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

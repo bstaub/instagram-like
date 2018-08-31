@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
 import {User} from '../models/user';
 import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {filter, map} from 'rxjs/operators';
+import AuthCredential = firebase.auth.AuthCredential;
 
 
 @Injectable({
@@ -33,7 +34,11 @@ export class UserService {
   }
 
   addUser(user: User) {
-    this.usersCollection.add(user);
+    return this.usersCollection.add(user);  // need return for async logout call in register process!
+  }
+
+  getSingleUserinFireStore(uid: AuthCredential) {
+    return this.afs.collection('users', ref => ref.where('id', '==', uid));
   }
 
   deleteUser(user: User) {

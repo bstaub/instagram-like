@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {AuthService} from '../auth.service';
 import {Router} from '@angular/router';
+import {NotificationService} from '../../shared/notification.service';
 
 
 @Component({
@@ -11,7 +12,7 @@ import {Router} from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private notifier: NotificationService) { }
 
   ngOnInit() {
   }
@@ -19,12 +20,22 @@ export class LoginComponent implements OnInit {
   onSubmit(form: NgForm) {
     this.authService.loginWithUserPassword(form.value.email, form.value.password)
       .then( (res) => {
-         console.log('Login Email/Password Erfrolgreich');
-         console.log(res);
-         // https://stackoverflow.com/questions/45025334/how-to-use-router-navigatebyurl-and-router-navigate-in-angular
-         this.router.navigateByUrl('');  // geht zur Homepage!
+        console.log('Login Email/Password Erfrolgreich');
+        console.log(res);
+
+        this.notifier.display('success', 'Login erfolgreich');
+
+        setTimeout(() => {
+          // https://stackoverflow.com/questions/45025334/how-to-use-router-navigatebyurl-and-router-navigate-in-angular
+          this.router.navigateByUrl('');  // geht zur Homepage!
+          // this.router.navigate(['/login']);
+        }, 2000);
+
       })
-      .catch( (err) => console.log('error bs: ' + err));
+      .catch( err => {
+        console.log('error bs: ' + err);
+        this.notifier.display('error', err.message);
+      });
   }
 
 }
