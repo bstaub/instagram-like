@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
   user;
   singleUserInFirestore;
   localStorageUser;
+  imageUrl;
 
   ngOnInit() {
     this.user = this.authService.getUserProfile();
@@ -36,20 +37,24 @@ export class ProfileComponent implements OnInit {
 
 
   onFileSelection($event) {
-    // debugger;
-    // const fileList: FileList = event.target.files;
-
-    /*
-    if (fileList.length > 0) {
-      const file: File = fileList[0];
-      // this.userService
-    }
-    */
     this.storageService.upload($event)
-      .then( data => console.log(data));
+      .then((uploadSnapshot: firebase.storage.UploadTaskSnapshot) => {
 
+        uploadSnapshot.ref.getDownloadURL().then((downloadURL) => {
+          console.log(downloadURL);
+          this.imageUrl = downloadURL;
+        });
+
+    });
 
   }
+
+
+
+
+
+
+
 
 
 
