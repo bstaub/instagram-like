@@ -34,6 +34,11 @@ export class UserService {
     return this.users;
   }
 
+  getUser(id) {
+    this.userDoc = this.afs.doc<User>(`users/${id}`);
+    return this.userDoc.valueChanges();
+  }
+
   addUser(user: User) {
     return this.usersCollection.add(user);  // need return for async logout call in register process!
   }

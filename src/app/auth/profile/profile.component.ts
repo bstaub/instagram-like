@@ -28,12 +28,16 @@ export class ProfileComponent implements OnInit {
 
 
   getUser() {
-    console.log('test1');
+
+    console.log('getUser!!!');
     console.log(this.user.uid);
-    // debugger;
-
     this.localStorageUser = this.userService.getProfileFromLocalStorage();
+    return this.userService.getUser(this.user.uid)
+      .subscribe( data => {
+        console.log('singleUser: ', data);
+        this.user2 = data;
 
+      });
     // this.singleUserInFirestore = this.userService.getSingleUserinFireStore(this.user.uid);
     // console.log('testing singleUserInFirestore: ', this.singleUserInFirestore);
   }
